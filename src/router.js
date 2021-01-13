@@ -1,23 +1,23 @@
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
 import Home from './pages/home';
-import About from './pages/about'
+import Register from './pages/register'
 
 const Router = () => {
   return (
     <div>
         <BrowserRouter>
           <nav>
-              <ul class="nav flex-column bg-dark mb-0 navcss">
-                <p class="text-white font-weight-bold text-uppercase mx-auto py-3 small pb-4 mb-0">DASHBOARD</p>
-                <li class="nav-item"><Link className="nav-link text-white" to="/">Home</Link></li>
-                <li class="nav-item"><Link className="nav-link text-white" to="/about">About</Link></li>
+              <ul className="nav flex-column bg-dark mb-0 navcss">
+                <p className="text-white font-weight-bold mx-auto py-3 pb-4 mb-0">DASHBOARD</p>
+                <li className="nav-item"><Link className="nav-link text-white" to="/">Home</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/register">Registrar Produtos</Link></li>
               </ul>
           </nav>
 
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/about" component={About} />
+            <Route path="/register" component={Register} />
           </Switch>
         </BrowserRouter>
     </div>
