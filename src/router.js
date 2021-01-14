@@ -13,22 +13,25 @@ const Router = () => {
 
           <ul className="nav flex-column bg-dark mb-0 navcss">
 
-            <p className="text-white font-weight-bold mx-auto py-3 pb-4 mb-0">DASHBOARD</p>
+            <p className="text-white font-weight-bold mx-auto py-3 pb-4 mb-0">Controle de Estoque</p>
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/">
+              <i class="fas fa-home mr-2" style={{ color: "white" }}></i>
                 Home
               </Link>
             </li>
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/category_register">
+            <i class="fas fa-plus mr-2" style={{ color: "white" }}></i>
                 Registrar Categoria
               </Link>
             </li>
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/register">
+              <i class="fas fa-box mr-2" style={{ color: "white" }}></i>
                 Registrar Produtos
               </Link>
             </li>
