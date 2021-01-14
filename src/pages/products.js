@@ -1,4 +1,5 @@
 import React from 'react';
+import TableLine from '../components/table_content_line'
 
 class Register extends React.Component {
   constructor(props) {
@@ -74,36 +75,10 @@ class Register extends React.Component {
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Celular</td>
-                      <td>3</td>
-                      <td>R$ 3200,00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Celular</td>
-                      <td>3</td>
-                      <td>R$ 3200,00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Celular</td>
-                      <td>3</td>
-                      <td>R$ 3200,00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Celular</td>
-                      <td>3</td>
-                      <td>R$ 3200,00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Celular</td>
-                      <td>3</td>
-                      <td>R$ 3200,00</td>
-                    </tr>
+                    <TableLine id="1" name="produto" quantity="32" price="9999,00" />
+                    <TableLine id="1" name="produto" quantity="32" price="9999,00" />
+                    <TableLine id="1" name="produto" quantity="32" price="9999,00" />
+                    <TableLine id="1" name="produto" quantity="32" price="9999,00" />
                   </tbody>
                 </table>
               </div>
