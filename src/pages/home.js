@@ -1,10 +1,10 @@
 import React from 'react';
 
 class Home extends React.Component {
-  render(){
-    return(
+  render() {
+    return (
       <>
-        <h1>home</h1>
+       <h1>aqui ainda ta vazio ok</h1>
       </>
     );
   }

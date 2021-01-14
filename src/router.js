@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
 import Home from './pages/home';
-import Register from './pages/register';
+import Register from './pages/products';
 import CategoryRegister from './pages/category_register';
 
 const Router = () => {
@@ -22,14 +22,14 @@ const Router = () => {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/register">
-                Registrar Produtos
-              </Link>
-            </li>
-            
-            <li className="nav-item">
               <Link className="nav-link text-white" to="/category_register">
                 Registrar Categoria
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/register">
+                Registrar Produtos
               </Link>
             </li>
 
