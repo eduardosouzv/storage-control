@@ -38,7 +38,7 @@ class Register extends React.Component {
                 <form>
                   <div className="form-group">
                     <label htmlFor="name">Nome</label>
-                    <input id="name" type="text" className="form-control" />
+                    <input id="name" type="text" className="form-control" autoComplete="off"/>
                   </div>
 
                   <div className="form-row">
