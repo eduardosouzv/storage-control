@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.post('/register', (req, res) => {
   res.send({
-      mensagem: 'product ok'
+    name: req.body.name,
+    quantity: req.body.quantity,
+    price: req.body.price,
   });
 });
 

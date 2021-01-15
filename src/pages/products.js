@@ -1,5 +1,7 @@
 import React from 'react';
-import TableLine from '../components/table_content_line'
+import axios from 'axios';
+
+import TableLine from '../components/table_content_line';
 
 class Register extends React.Component {
   constructor(props) {
@@ -15,13 +17,22 @@ class Register extends React.Component {
     this.setState({ name: e.target.value });
   };
 
-  changeQuantidade = (e) => {
+  changeQuantity = (e) => {
     this.setState({ quantity: e.target.value });
   };
 
-  changePreco = (e) => {
+  changePrice = (e) => {
     this.setState({ price: e.target.value });
   };
+
+  sendProduct = () => {
+    axios.post('http://localhost:3001/product/register', {
+      name: this.state.name,
+      quantity: this.state.quantity,
+      price: this.state.price,
+    })
+    .then((res) => { console.log(res.data) })
+  }
 
   render() {
     return (
@@ -38,23 +49,23 @@ class Register extends React.Component {
                 <form>
                   <div className="form-group">
                     <label htmlFor="name">Nome</label>
-                    <input id="name" type="text" className="form-control" autoComplete="off"/>
+                    <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.changeName} />
                   </div>
 
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="quantity">Quantidade</label>
-                      <input id="quantity" type="text" className="form-control" />
+                      <input id="quantity" type="text" className="form-control" onChange={this.changeQuantity} />
                     </div>
 
                     <div className="form-group col-md-6">
                       <label htmlFor="price">Preço</label>
-                      <input id="price" type="text" className="form-control" />
+                      <input id="price" type="text" className="form-control" onChange={this.changePrice}/>
                     </div>
                   </div>
 
                   <div>
-                    <button type="button" className="btn btn-dark">
+                    <button type="button" className="btn btn-dark" onClick={this.sendProduct}>
                       Cadastrar
                     </button>
                   </div>
