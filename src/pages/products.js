@@ -37,18 +37,18 @@ class Register extends React.Component {
               <div className="col-md-6 mt-2">
                 <form>
                   <div className="form-group">
-                    <label for="name">Nome</label>
+                    <label htmlFor="name">Nome</label>
                     <input id="name" type="text" className="form-control" />
                   </div>
 
                   <div className="form-row">
                     <div className="form-group col-md-6">
-                      <label for="quantity">Quantidade</label>
+                      <label htmlFor="quantity">Quantidade</label>
                       <input id="quantity" type="text" className="form-control" />
                     </div>
 
                     <div className="form-group col-md-6">
-                      <label for="price">Preço</label>
+                      <label htmlFor="price">Preço</label>
                       <input id="price" type="text" className="form-control" />
                     </div>
                   </div>
