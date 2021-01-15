@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.post('/create', (req, res) => {
   res.send({
-      mensagem: 'category ok'
+    catName: req.body.catName,
   });
 });
 

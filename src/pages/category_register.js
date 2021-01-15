@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class CategoryRegister extends React.Component {
   constructor(props) {
@@ -7,6 +8,16 @@ class CategoryRegister extends React.Component {
       category_name: '',
     };
   }
+
+  changeCatName = (e) => {
+    this.setState({ category_name: e.target.value });
+  };
+
+  sendCatName = () => {
+    axios.post('http://localhost:3001/category/create', { catName: this.state.category_name }).then((res) => {
+      console.log(res.data);
+    });
+  };
 
   render() {
     return (
@@ -20,11 +31,11 @@ class CategoryRegister extends React.Component {
             <div className="container mt-2">
               <form>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Nome da categoria" />
+                  <input type="text" className="form-control" placeholder="Nome da categoria" onChange={this.changeCatName} />
                 </div>
 
                 <div className="float-right">
-                  <button type="button" className="btn btn-dark">
+                  <button type="button" className="btn btn-dark" onClick={this.sendCatName}>
                     Cadastrar
                   </button>
                 </div>
