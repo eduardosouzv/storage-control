@@ -17,21 +17,21 @@ const Router = () => {
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/">
-              <i class="fas fa-home mr-2" style={{ color: "white" }}></i>
+              <i className="fas fa-home mr-2" style={{ color: "white" }}></i>
                 Home
               </Link>
             </li>
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/category_register">
-            <i class="fas fa-plus mr-2" style={{ color: "white" }}></i>
+            <i className="fas fa-plus mr-2" style={{ color: "white" }}></i>
                 Registrar Categoria
               </Link>
             </li>
 
             <li className="nav-item">
               <Link className="nav-link text-white" to="/register">
-              <i class="fas fa-box mr-2" style={{ color: "white" }}></i>
+              <i className="fas fa-box mr-2" style={{ color: "white" }}></i>
                 Registrar Produtos
               </Link>
             </li>
