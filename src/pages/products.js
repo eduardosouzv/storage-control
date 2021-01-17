@@ -55,12 +55,12 @@ class Register extends React.Component {
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="quantity">Quantidade</label>
-                      <input id="quantity" type="text" className="form-control" onChange={this.changeQuantity} />
+                      <input id="quantity" type="text" className="form-control" autoComplete="off" onChange={this.changeQuantity} />
                     </div>
 
                     <div className="form-group col-md-6">
                       <label htmlFor="price">Preço</label>
-                      <input id="price" type="text" className="form-control" onChange={this.changePrice}/>
+                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.changePrice}/>
                     </div>
                   </div>
 
