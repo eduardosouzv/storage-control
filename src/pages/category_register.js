@@ -29,13 +29,13 @@ class CategoryRegister extends React.Component {
             </div>
 
             <div className="container mt-2">
-              <form>
+              <form onSubmit={this.sendCatName}>
                 <div className="form-group">
                   <input type="text" className="form-control" placeholder="Nome da categoria" onChange={this.changeCatName} />
                 </div>
 
                 <div className="float-right">
-                  <button type="button" className="btn btn-dark" onClick={this.sendCatName}>
+                  <button type="submit" className="btn btn-dark" >
                     Cadastrar
                   </button>
                 </div>

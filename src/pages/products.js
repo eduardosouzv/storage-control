@@ -46,7 +46,7 @@ class Register extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-6 mt-2">
-                <form>
+                <form onSubmit={this.sendProduct} >
                   <div className="form-group">
                     <label htmlFor="name">Nome</label>
                     <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.changeName} />
@@ -65,7 +65,7 @@ class Register extends React.Component {
                   </div>
 
                   <div>
-                    <button type="button" className="btn btn-dark" onClick={this.sendProduct}>
+                    <button type="submit" className="btn btn-dark" >
                       Cadastrar
                     </button>
                   </div>
