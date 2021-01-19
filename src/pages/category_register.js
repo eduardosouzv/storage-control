@@ -14,9 +14,7 @@ class CategoryRegister extends React.Component {
   };
 
   sendCatName = () => {
-    axios.post('http://localhost:3001/category/create', { catName: this.state.category_name }).then((res) => {
-      console.log(res.data);
-    });
+    axios.post('http://localhost:3001/category/create', { name: this.state.category_name });
   };
 
   render() {
@@ -29,13 +27,13 @@ class CategoryRegister extends React.Component {
             </div>
 
             <div className="container mt-2">
-              <form onSubmit={this.sendCatName}>
+              <form>
                 <div className="form-group">
                   <input type="text" className="form-control" placeholder="Nome da categoria" onChange={this.changeCatName} />
                 </div>
 
                 <div className="float-right">
-                  <button type="submit" className="btn btn-dark" >
+                  <button type="button" className="btn btn-dark" onClick={this.sendCatName}>
                     Cadastrar
                   </button>
                 </div>

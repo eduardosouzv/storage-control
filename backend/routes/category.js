@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../connection');
 
 router.post('/create', (req, res) => {
-  res.send({
-    catName: req.body.catName,
+  pool.query('INSERT INTO categorias(nome) VALUES (?)', [req.body.name], (err, result) => {
+    if (err) throw err;
+    res.send(req.body.name);
   });
 });
 
