@@ -26,13 +26,16 @@ class Register extends React.Component {
   };
 
   sendProduct = () => {
-    axios.post('http://localhost:3001/product/register', {
-      name: this.state.name,
-      quantity: this.state.quantity,
-      price: this.state.price,
-    })
-    .then((res) => { console.log(res.data) })
-  }
+    axios
+      .post('http://localhost:3001/product/register', {
+        name: this.state.name,
+        quantity: this.state.quantity,
+        price: this.state.price,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
 
   render() {
     return (
@@ -46,7 +49,7 @@ class Register extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-6 mt-2">
-                <form onSubmit={this.sendProduct} >
+                <form onSubmit={this.sendProduct}>
                   <div className="form-group">
                     <label htmlFor="name">Nome</label>
                     <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.changeName} />
@@ -60,12 +63,12 @@ class Register extends React.Component {
 
                     <div className="form-group col-md-6">
                       <label htmlFor="price">Preço</label>
-                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.changePrice}/>
+                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.changePrice} />
                     </div>
                   </div>
 
                   <div>
-                    <button type="submit" className="btn btn-dark" >
+                    <button type="submit" className="btn btn-dark">
                       Cadastrar
                     </button>
                   </div>
