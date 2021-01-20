@@ -15,7 +15,7 @@ class CategoryRegister extends React.Component {
 
   sendCatName = () => {
     if (this.state.category_name.length === 0) {
-      console.log('merda');
+      console.log('blank');
     } else {
       axios.post('http://localhost:3001/category/create', { name: this.state.category_name });
     }
