@@ -14,12 +14,16 @@ class CategoryRegister extends React.Component {
   };
 
   sendCatName = () => {
-    axios.post('http://localhost:3001/category/create', { name: this.state.category_name });
+    if (this.state.category_name.length === 0) {
+      console.log('merda');
+    } else {
+      axios.post('http://localhost:3001/category/create', { name: this.state.category_name });
+    }
   };
 
   render() {
     return (
-      <>
+      <div>
         <div className="form-group row">
           <div className="mx-auto mt-5">
             <div className="col-md-12 mx-auto mb-4">
@@ -41,7 +45,7 @@ class CategoryRegister extends React.Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
