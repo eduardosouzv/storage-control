@@ -25,16 +25,40 @@ class Register extends React.Component {
     this.setState({ price: e.target.value });
   };
 
+  formatPrice(prc) {
+    var formattedString = prc.replace(',', '.');
+    var formattedPrice = parseFloat(formattedString).toFixed(2);
+    if (!isNaN(formattedPrice)) {
+      var split = formattedPrice.split('.');
+      if (split[0].length > 6) {
+        return NaN;
+      } else {
+        return formattedPrice;
+      }
+    }
+  }
+
   sendProduct = () => {
-    axios
-      .post('http://localhost:3001/product/register', {
-        name: this.state.name,
-        quantity: this.state.quantity,
-        price: this.state.price,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    var qtdParsed = parseInt(this.state.quantity);
+
+    if (this.state.name.length === 0 && this.state.quantity.length === 0 && this.state.price.length === 0) {
+      console.log('blank');
+    } else if (isNaN(qtdParsed)) {
+      console.log('err qtd');
+    } else if (isNaN(this.formatPrice(this.state.price))) {
+      console.log('err price');
+    } else {
+      console.log('ok');
+      axios
+        .post('http://localhost:3001/product/register', {
+          name: this.state.name,
+          quantity: qtdParsed,
+          price: this.formatPrice(this.state.price),
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
   };
 
   render() {
