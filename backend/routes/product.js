@@ -16,4 +16,11 @@ router.post('/register', (req, res) => {
   });
 });
 
+router.get('/category', (req, res) => {
+  pool.query('SELECT * FROM categorias', (err, rows) => {
+    if (err) throw err;
+    res.send(rows.length ? rows : null);
+  });
+});
+
 module.exports = router;
