@@ -7,22 +7,41 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      quantity: '',
-      price: '',
+      product: {
+        name: '',
+        quantity: '',
+        price: '',
+        category_id: '',
+      },
+      categories: [],
     };
   }
 
-  changeName = (e) => {
-    this.setState({ name: e.target.value });
+  componentDidMount() {
+    this.getCatNames();
+  }
+
+  getCatNames = async () => {
+    const response = await axios.get('http://localhost:3001/product/category');
+    this.setState({
+      categories: response.data,
+    });
   };
 
-  changeQuantity = (e) => {
-    this.setState({ quantity: e.target.value });
+  onChangeName = (e) => {
+    this.setState({ product: { name: e.target.value } });
   };
 
-  changePrice = (e) => {
-    this.setState({ price: e.target.value });
+  onChangeQuantity = (e) => {
+    this.setState({ product: { quantity: e.target.value } });
+  };
+
+  onChangePrice = (e) => {
+    this.setState({ product: { price: e.target.value } });
+  };
+
+  onChangeCategory = (e) => {
+    this.setState({ product: { category_id: e.target.value } });
   };
 
   formatPrice(prc) {
@@ -74,20 +93,33 @@ class Register extends React.Component {
             <div className="row">
               <div className="col-md-6 mt-2">
                 <form>
-                  <div className="form-group">
-                    <label htmlFor="name">Nome</label>
-                    <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.changeName} />
+                  <div className="form-row">
+                    <div className="form-group col-md-6">
+                      <label htmlFor="name">Nome</label>
+                      <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.onChangeName} />
+                    </div>
+                    <div className="form-group col-md-6">
+                      <label htmlFor="cat">Categoria</label>
+                      <select className="form-control" onChange={this.onChangeCategory}>
+                        <option defaultValue></option>
+                        {this.state.categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.nome}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label htmlFor="quantity">Quantidade</label>
-                      <input id="quantity" type="text" className="form-control" autoComplete="off" onChange={this.changeQuantity} />
+                      <input id="quantity" type="text" className="form-control" autoComplete="off" onChange={this.onChangeQuantity} />
                     </div>
 
                     <div className="form-group col-md-6">
                       <label htmlFor="price">Preço</label>
-                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.changePrice} />
+                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.onChangePrice} />
                     </div>
                   </div>
 
