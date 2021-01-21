@@ -7,12 +7,10 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {
-        name: '',
-        quantity: '',
-        price: '',
-        category_id: '',
-      },
+      name: '',
+      quantity: '',
+      price: '',
+      category_id: '',
       categories: [],
     };
   }
@@ -29,19 +27,19 @@ class Register extends React.Component {
   };
 
   onChangeName = (e) => {
-    this.setState({ product: { name: e.target.value } });
+    this.setState({ name: e.target.value });
   };
 
   onChangeQuantity = (e) => {
-    this.setState({ product: { quantity: e.target.value } });
+    this.setState({ quantity: e.target.value });
   };
 
   onChangePrice = (e) => {
-    this.setState({ product: { price: e.target.value } });
+    this.setState({ price: e.target.value });
   };
 
   onChangeCategory = (e) => {
-    this.setState({ product: { category_id: e.target.value } });
+    this.setState({ category_id: e.target.value });
   };
 
   formatPrice(prc) {
@@ -57,22 +55,36 @@ class Register extends React.Component {
     }
   }
 
-  sendProduct = () => {
+  verifyFields = () => {
     var qtdParsed = parseInt(this.state.quantity);
-
-    if (this.state.product.name.length === 0 && this.state.product.quantity.length === 0 && this.state.product.price.length === 0) {
+    if (
+      this.state.name.length === 0 ||
+      this.state.quantity.length === 0 ||
+      this.state.price.length === 0 ||
+      this.state.category_id.length === 0
+    ) {
       console.log('blank');
+      return false;
     } else if (isNaN(qtdParsed)) {
       console.log('err qtd');
+      return false;
     } else if (isNaN(this.formatPrice(this.state.price))) {
       console.log('err price');
+      return false;
     } else {
       console.log('ok');
+      return true;
+    }
+  };
+
+  sendProduct = () => {
+    if (this.verifyFields()) {
       axios
         .post('http://localhost:3001/product/register', {
           name: this.state.name,
-          quantity: qtdParsed,
+          quantity: parseInt(this.state.quantity),
           price: this.formatPrice(this.state.price),
+          categorias_id: this.state.category_id,
         })
         .then((res) => {
           console.log(res.data);

@@ -3,17 +3,21 @@ const router = express.Router();
 const pool = require('../connection');
 
 router.post('/register', (req, res) => {
-  res.send(
-    (data = {
-      name: req.body.name,
-      quantity: req.body.quantity,
-      price: req.body.price,
-    })
-  );
+  var data = {
+    name: req.body.name,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    categorias_id: req.body.categorias_id,
+  };
 
-  pool.query('INSERT INTO produtos(nome, quantidade, preco) VALUES (?,?,?)', [data.name, data.quantity, data.price], (err, result) => {
-    if (err) throw err;
-  });
+  pool.query(
+    'INSERT INTO produtos(nome, quantidade, preco, categorias_id) VALUES (?,?,?,?)',
+    [data.name, data.quantity, data.price, data.categorias_id],
+    (err, result) => {
+      if (err) throw err;
+      res.send(data);
+    }
+  );
 });
 
 router.get('/category', (req, res) => {
