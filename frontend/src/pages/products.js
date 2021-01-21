@@ -114,11 +114,13 @@ class Register extends React.Component {
                       <label htmlFor="cat">Categoria</label>
                       <select className="form-control" onChange={this.onChangeCategory}>
                         <option defaultValue></option>
-                        {this.state.categories.map((category) => (
-                          <option key={category.id} value={category.id}>
-                            {category.nome}
-                          </option>
-                        ))}
+                        {this.state.categories
+                          ? this.state.categories.map((category) => (
+                              <option key={category.id} value={category.id}>
+                                {category.nome}
+                              </option>
+                            ))
+                          : null}
                       </select>
                     </div>
                   </div>
