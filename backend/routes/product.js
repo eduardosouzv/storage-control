@@ -27,4 +27,11 @@ router.get('/category', (req, res) => {
   });
 });
 
+router.get('/products', (req, res) => {
+  pool.query('SELECT * FROM produtos', (err, rows) => {
+    if (err) throw err;
+    res.send(rows.length ? rows : null);
+  });
+});
+
 module.exports = router;
