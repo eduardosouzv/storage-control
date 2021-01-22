@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import TableLine from '../components/table_content_line';
+import Sucess from '../components/sucessMessage';
 
 class Register extends React.Component {
   constructor(props) {
@@ -14,6 +15,11 @@ class Register extends React.Component {
       categories: [],
       products: [],
       elements: [],
+
+      sucess: {
+        visibility: false,
+        msg: '',
+      },
     };
   }
 
@@ -108,6 +114,7 @@ class Register extends React.Component {
         .then((res) => {
           console.log(res.data);
           this.getProducts();
+          this.setState({ sucess: { visibility: true, msg: 'Produto cadastrado.' } });
         });
     }
   };
@@ -161,6 +168,17 @@ class Register extends React.Component {
                     <button type="button" className="btn btn-dark" onClick={this.sendProduct}>
                       Cadastrar
                     </button>
+                  </div>
+                  <div className="mt-2">
+                    {this.state.sucess.visibility ? (
+                      <Sucess
+                        className="mt-2"
+                        msg={this.state.sucess.msg}
+                        click={() => {
+                          this.setState({ sucess: { visibility: false, msg: '' } });
+                        }}
+                      />
+                    ) : null}
                   </div>
                 </form>
               </div>
