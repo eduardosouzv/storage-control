@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import TableLine from '../components/table_content_line';
 import Sucess from '../components/sucessMessage';
+import Failed from '../components/failMessage';
 
 class Register extends React.Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class Register extends React.Component {
       elements: [],
 
       sucess: {
+        visibility: false,
+        msg: '',
+      },
+      failed: {
         visibility: false,
         msg: '',
       },
@@ -37,12 +42,10 @@ class Register extends React.Component {
 
   getProducts = async () => {
     const response = await axios.get('http://localhost:3001/product/products');
-    console.log(response);
     if (response.data) {
       this.setState({
         products: response.data,
       });
-      console.log(response.data);
       var el = [];
       response.data.map((product) =>
         el.push(<TableLine key={product.id} id={product.id} name={product.nome} quantity={product.quantidade} price={product.preco} />)
@@ -88,21 +91,22 @@ class Register extends React.Component {
       this.state.price.length === 0 ||
       this.state.category_id.length === 0
     ) {
-      console.log('blank');
+      this.setState({ failed: { visibility: true, msg: 'Campos em branco.' } });
       return false;
     } else if (isNaN(qtdParsed)) {
-      console.log('err qtd');
+      this.setState({ failed: { visibility: true, msg: 'Quantidade invalida.' } });
       return false;
     } else if (isNaN(this.formatPrice(this.state.price))) {
-      console.log('err price');
+      this.setState({ failed: { visibility: true, msg: 'Preço invalido.' } });
       return false;
     } else {
-      console.log('ok');
       return true;
     }
   };
 
   sendProduct = () => {
+    this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+
     if (this.verifyFields()) {
       axios
         .post('http://localhost:3001/product/register', {
@@ -111,8 +115,7 @@ class Register extends React.Component {
           price: this.formatPrice(this.state.price),
           categorias_id: this.state.category_id,
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           this.getProducts();
           this.setState({ sucess: { visibility: true, msg: 'Produto cadastrado.' } });
         });
@@ -172,10 +175,18 @@ class Register extends React.Component {
                   <div className="mt-2">
                     {this.state.sucess.visibility ? (
                       <Sucess
-                        className="mt-2"
                         msg={this.state.sucess.msg}
                         click={() => {
                           this.setState({ sucess: { visibility: false, msg: '' } });
+                        }}
+                      />
+                    ) : null}
+
+                    {this.state.failed.visibility ? (
+                      <Failed
+                        msg={this.state.failed.msg}
+                        click={() => {
+                          this.setState({ failed: { visibility: false, msg: '' } });
                         }}
                       />
                     ) : null}
