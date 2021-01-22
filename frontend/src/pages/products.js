@@ -31,7 +31,8 @@ class Register extends React.Component {
 
   getProducts = async () => {
     const response = await axios.get('http://localhost:3001/product/products');
-    if (response) {
+    console.log(response);
+    if (response.data) {
       this.setState({
         products: response.data,
       });
