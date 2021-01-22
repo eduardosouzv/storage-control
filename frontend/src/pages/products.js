@@ -13,6 +13,7 @@ class Register extends React.Component {
       category_id: '',
       categories: [],
       products: [],
+      elements: [],
     };
   }
 
@@ -30,10 +31,17 @@ class Register extends React.Component {
 
   getProducts = async () => {
     const response = await axios.get('http://localhost:3001/product/products');
-    this.setState({
-      products: response.data,
-    });
-    console.log(response.data);
+    if (response) {
+      this.setState({
+        products: response.data,
+      });
+      console.log(response.data);
+      var el = [];
+      response.data.map((product) =>
+        el.push(<TableLine key={product.id} id={product.id} name={product.nome} quantity={product.quantidade} price={product.preco} />)
+      );
+      this.setState({ elements: el });
+    }
   };
 
   onChangeName = (e) => {
@@ -98,6 +106,7 @@ class Register extends React.Component {
         })
         .then((res) => {
           console.log(res.data);
+          this.getProducts();
         });
     }
   };
@@ -168,19 +177,7 @@ class Register extends React.Component {
                     </tr>
                   </thead>
 
-                  <tbody>
-                    {this.state.products
-                      ? this.state.products.map((product) => (
-                          <TableLine
-                            key={product.id}
-                            id={product.id}
-                            name={product.nome}
-                            quantity={product.quantidade}
-                            price={product.preco}
-                          />
-                        ))
-                      : null}
-                  </tbody>
+                  <tbody>{this.state.elements}</tbody>
                 </table>
               </div>
             </div>
