@@ -9,6 +9,7 @@ class TableLine extends React.Component {
           <td>{this.props.name}</td>
           <td>{this.props.quantity}</td>
           <td>R$ {this.props.price}</td>
+          <td>{this.props.category}</td>
         </tr>
       </>
     );

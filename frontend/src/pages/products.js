@@ -48,7 +48,16 @@ class Register extends React.Component {
       });
       var el = [];
       response.data.map((product) =>
-        el.push(<TableLine key={product.id} id={product.id} name={product.nome} quantity={product.quantidade} price={product.preco} />)
+        el.push(
+          <TableLine
+            key={product.id}
+            id={product.id}
+            name={product.nome}
+            quantity={product.quantidade}
+            price={product.preco}
+            category="test"
+          />
+        )
       );
       this.setState({ elements: el });
     }
@@ -204,6 +213,7 @@ class Register extends React.Component {
                       <th scope="col">Nome</th>
                       <th scope="col">Quantidade</th>
                       <th scope="col">Preço</th>
+                      <th scope="col">Categoria</th>
                     </tr>
                   </thead>
 
