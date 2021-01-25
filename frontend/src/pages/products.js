@@ -214,6 +214,7 @@ class Register extends React.Component {
                       <th scope="col">Quantidade</th>
                       <th scope="col">Preço</th>
                       <th scope="col">Categoria</th>
+                      <th scope="col">Ações</th>
                     </tr>
                   </thead>
 
