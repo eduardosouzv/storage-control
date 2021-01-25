@@ -28,7 +28,7 @@ router.get('/category', (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  pool.query('SELECT * FROM produtos', (err, rows) => {
+  pool.query('SELECT p.*, c.nome AS nome_categoria FROM produtos p INNER JOIN categorias c ON p.categorias_id = c.id', (err, rows) => {
     if (err) throw err;
     res.send(rows.length ? rows : null);
   });

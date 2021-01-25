@@ -55,7 +55,7 @@ class Register extends React.Component {
             name={product.nome}
             quantity={product.quantidade}
             price={product.preco}
-            category="test"
+            category={product.nome_categoria}
           />
         )
       );
