@@ -28,10 +28,13 @@ router.get('/category', (req, res) => {
 });
 
 router.get('/products', (req, res) => {
-  pool.query('SELECT p.*, c.nome AS nome_categoria FROM produtos p INNER JOIN categorias c ON p.categorias_id = c.id', (err, rows) => {
-    if (err) throw err;
-    res.send(rows.length ? rows : null);
-  });
+  pool.query(
+    'SELECT produtos.*, categorias.nome AS nome_categoria FROM produtos INNER JOIN categorias ON produtos.categorias_id = categorias.id ORDER BY produtos.id;',
+    (err, rows) => {
+      if (err) throw err;
+      res.send(rows.length ? rows : null);
+    }
+  );
 });
 
 module.exports = router;
