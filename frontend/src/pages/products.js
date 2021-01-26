@@ -4,6 +4,7 @@ import axios from 'axios';
 import TableLine from '../components/table_content_line';
 import Sucess from '../components/sucessMessage';
 import Failed from '../components/failMessage';
+import Button from '../components/button_form';
 
 class Register extends React.Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class Register extends React.Component {
         visibility: false,
         msg: '',
       },
+
+      editButtonVisibility: false,
     };
   }
 
@@ -56,6 +59,17 @@ class Register extends React.Component {
             quantity={product.quantidade}
             price={product.preco}
             category={product.nome_categoria}
+            click={() => {
+              this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+              window.scrollTo(0, 0);
+              this.setState({ editButtonVisibility: true });
+              this.setState({
+                name: product.nome,
+                quantity: product.quantidade,
+                price: product.preco,
+                category_id: product.categorias_id,
+              });
+            }}
           />
         )
       );
@@ -80,7 +94,7 @@ class Register extends React.Component {
   };
 
   formatPrice(prc) {
-    var formattedString = prc.replace(',', '.');
+    var formattedString = String(prc).replace(',', '.');
     var formattedPrice = parseFloat(formattedString).toFixed(2);
     if (!isNaN(formattedPrice)) {
       var split = formattedPrice.split('.');
@@ -131,6 +145,22 @@ class Register extends React.Component {
     }
   };
 
+  sendChange = () => {
+    this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+    if (this.verifyFields()) {
+      console.log('ok');
+      this.setState({ editButtonVisibility: false });
+      this.setState({
+        name: '',
+        quantity: '',
+        price: '',
+        category_id: '',
+      });
+    } else {
+      console.log('false');
+    }
+  };
+
   render() {
     return (
       <>
@@ -143,64 +173,85 @@ class Register extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-6 mt-2">
-                <form>
-                  <div className="form-row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="name">Nome</label>
-                      <input id="name" type="text" className="form-control" autoComplete="off" onChange={this.onChangeName} />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <label htmlFor="cat">Categoria</label>
-                      <select className="form-control" onChange={this.onChangeCategory}>
-                        <option defaultValue></option>
-                        {this.state.categories
-                          ? this.state.categories.map((category) => (
-                              <option key={category.id} value={category.id}>
-                                {category.nome}
-                              </option>
-                            ))
-                          : null}
-                      </select>
-                    </div>
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="name">Nome</label>
+                    <input
+                      value={this.state.name}
+                      id="name"
+                      type="text"
+                      className="form-control"
+                      autoComplete="off"
+                      onChange={this.onChangeName}
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="cat">Categoria</label>
+                    <select value={this.state.category_id} className="form-control" onChange={this.onChangeCategory}>
+                      <option defaultValue></option>
+                      {this.state.categories
+                        ? this.state.categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.nome}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group col-md-6">
+                    <label htmlFor="quantity">Quantidade</label>
+                    <input
+                      value={this.state.quantity}
+                      id="quantity"
+                      type="text"
+                      className="form-control"
+                      autoComplete="off"
+                      onChange={this.onChangeQuantity}
+                    />
                   </div>
 
-                  <div className="form-row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="quantity">Quantidade</label>
-                      <input id="quantity" type="text" className="form-control" autoComplete="off" onChange={this.onChangeQuantity} />
-                    </div>
-
-                    <div className="form-group col-md-6">
-                      <label htmlFor="price">Preço</label>
-                      <input id="price" type="text" className="form-control" autoComplete="off" onChange={this.onChangePrice} />
-                    </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="price">Preço</label>
+                    <input
+                      value={this.state.price}
+                      id="price"
+                      type="text"
+                      className="form-control"
+                      autoComplete="off"
+                      onChange={this.onChangePrice}
+                    />
                   </div>
+                </div>
 
-                  <div>
-                    <button type="button" className="btn btn-dark" onClick={this.sendProduct}>
-                      Cadastrar
-                    </button>
-                  </div>
-                  <div className="mt-2">
-                    {this.state.sucess.visibility ? (
-                      <Sucess
-                        msg={this.state.sucess.msg}
-                        click={() => {
-                          this.setState({ sucess: { visibility: false, msg: '' } });
-                        }}
-                      />
-                    ) : null}
+                <div>
+                  {this.state.editButtonVisibility ? (
+                    <Button bClass="btn btn-primary" text="Salvar alterações" click={this.sendChange} />
+                  ) : (
+                    <Button bClass="btn btn-dark" text="Cadastrar" click={this.sendProduct} />
+                  )}
+                </div>
+                <div className="mt-2">
+                  {this.state.sucess.visibility ? (
+                    <Sucess
+                      msg={this.state.sucess.msg}
+                      click={() => {
+                        this.setState({ sucess: { visibility: false, msg: '' } });
+                      }}
+                    />
+                  ) : null}
 
-                    {this.state.failed.visibility ? (
-                      <Failed
-                        msg={this.state.failed.msg}
-                        click={() => {
-                          this.setState({ failed: { visibility: false, msg: '' } });
-                        }}
-                      />
-                    ) : null}
-                  </div>
-                </form>
+                  {this.state.failed.visibility ? (
+                    <Failed
+                      msg={this.state.failed.msg}
+                      click={() => {
+                        this.setState({ failed: { visibility: false, msg: '' } });
+                      }}
+                    />
+                  ) : null}
+                </div>
               </div>
             </div>
 
