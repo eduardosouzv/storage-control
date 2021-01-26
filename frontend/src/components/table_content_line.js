@@ -12,7 +12,7 @@ class TableLine extends React.Component {
           <td>{this.props.category}</td>
           <td>
             <button style={{ border: 'none' }} onClick={this.props.click}>
-              <i class="fas fa-pen-square fa-2x" title="Editar"></i>
+              <i className="fas fa-pen-square fa-2x" title="Editar"></i>
             </button>
           </td>
         </tr>
