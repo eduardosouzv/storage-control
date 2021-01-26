@@ -37,4 +37,23 @@ router.get('/products', (req, res) => {
   );
 });
 
+router.put('/edit', (req, res) => {
+  var data = {
+    name: req.body.name,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    categorias_id: req.body.categorias_id,
+    id: req.body.id,
+  };
+
+  pool.query(
+    'UPDATE produtos SET nome = ?, quantidade = ?, preco = ?, categorias_id = ? WHERE id = ?',
+    [data.name, data.quantity, data.price, data.categorias_id, data.id],
+    (err, result) => {
+      if (err) throw err;
+      res.send(data);
+    }
+  );
+});
+
 module.exports = router;

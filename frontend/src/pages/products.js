@@ -17,6 +17,7 @@ class Register extends React.Component {
       categories: [],
       products: [],
       elements: [],
+      id: '',
 
       sucess: {
         visibility: false,
@@ -68,6 +69,7 @@ class Register extends React.Component {
                 quantity: product.quantidade,
                 price: product.preco,
                 category_id: product.categorias_id,
+                id: product.id,
               });
             }}
           />
@@ -148,14 +150,26 @@ class Register extends React.Component {
   sendChange = () => {
     this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
     if (this.verifyFields()) {
-      console.log('ok');
-      this.setState({ editButtonVisibility: false });
-      this.setState({
-        name: '',
-        quantity: '',
-        price: '',
-        category_id: '',
-      });
+      axios
+        .put('http://localhost:3001/product/edit', {
+          name: this.state.name,
+          quantity: parseInt(this.state.quantity),
+          price: this.formatPrice(this.state.price),
+          categorias_id: this.state.category_id,
+          id: this.state.id,
+        })
+        .then(() => {
+          this.getProducts();
+          this.setState({ editButtonVisibility: false });
+          this.setState({
+            name: '',
+            quantity: '',
+            price: '',
+            category_id: '',
+          });
+
+          this.setState({ sucess: { visibility: true, msg: 'Produto editado.' } });
+        });
     } else {
       console.log('false');
     }
