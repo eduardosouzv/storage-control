@@ -60,7 +60,7 @@ class Register extends React.Component {
             quantity={product.quantidade}
             price={product.preco}
             category={product.nome_categoria}
-            click={() => {
+            editClick={() => {
               this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
               window.scrollTo(0, 0);
               this.setState({ editButtonVisibility: true });
@@ -71,6 +71,9 @@ class Register extends React.Component {
                 category_id: product.categorias_id,
                 id: product.id,
               });
+            }}
+            delClick={() => {
+              console.log('delete button');
             }}
           />
         )

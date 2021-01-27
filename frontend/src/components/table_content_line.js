@@ -11,9 +11,13 @@ class TableLine extends React.Component {
           <td>R$ {this.props.price}</td>
           <td>{this.props.category}</td>
           <td>
-            <button style={{ border: 'none' }} onClick={this.props.click}>
-              <i className="fas fa-pen-square fa-2x" title="Editar"></i>
-            </button>
+            <i
+              className="fas fa-pen fa-2x"
+              title="Editar"
+              style={{ cursor: 'pointer', paddingRight: '18px' }}
+              onClick={this.props.editClick}
+            ></i>
+            <i className="fas fa-trash-alt fa-2x" style={{ cursor: 'pointer' }} onClick={this.props.delClick}></i>
           </td>
         </tr>
       </>
