@@ -73,7 +73,9 @@ class Register extends React.Component {
               });
             }}
             delClick={() => {
-              console.log('delete button');
+              axios.delete('http://localhost:3001/product/delete', { data: { id: product.id } }).then(() => {
+                this.getProducts();
+              });
             }}
           />
         )

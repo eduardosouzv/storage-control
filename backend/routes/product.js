@@ -56,4 +56,11 @@ router.put('/edit', (req, res) => {
   );
 });
 
+router.delete('/delete', (req, res) => {
+  pool.query('DELETE FROM produtos WHERE id = ?', [req.body.id], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 module.exports = router;
