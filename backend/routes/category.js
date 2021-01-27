@@ -9,4 +9,10 @@ router.post('/create', (req, res) => {
   });
 });
 
+router.get('/categories', (req, res) => {
+  pool.query('SELECT * FROM categorias', (err, rows) => {
+    res.send(rows.length ? rows : null);
+  });
+});
+
 module.exports = router;

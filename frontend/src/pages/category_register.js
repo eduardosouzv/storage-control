@@ -8,6 +8,8 @@ class CategoryRegister extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      categories: [],
+
       category_name: '',
       sucess: {
         visibility: false,
@@ -19,6 +21,41 @@ class CategoryRegister extends React.Component {
       },
     };
   }
+
+  componentDidMount = () => {
+    this.getCategories();
+  };
+
+  getCategories = async () => {
+    const response = await axios.get('http://localhost:3001/category/categories');
+    var el = [];
+    response.data.map((product) =>
+      el.push(
+        <tr key={product.id}>
+          <td>{product.id}</td>
+          <td>{product.nome}</td>
+          <td>
+            <i
+              className="fas fa-pen fa-2x"
+              title="Editar"
+              style={{ cursor: 'pointer', paddingRight: '18px' }}
+              onClick={() => {
+                console.log('edit');
+              }}
+            ></i>
+            <i
+              className="fas fa-trash-alt fa-2x"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                console.log('del');
+              }}
+            ></i>
+          </td>
+        </tr>
+      )
+    );
+    this.setState({ categories: el });
+  };
 
   changeCatName = (e) => {
     this.setState({ category_name: e.target.value });
@@ -75,6 +112,24 @@ class CategoryRegister extends React.Component {
                     }}
                   />
                 ) : null}
+              </div>
+              <div className="row mt-5">
+                <div className="col-md-12 mx-auto mb-4 mt-5">
+                  <h1>Categorias Cadastradas</h1>
+                </div>
+                <div className="col">
+                  <table className="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Ações</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>{this.state.categories}</tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
