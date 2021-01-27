@@ -15,4 +15,14 @@ router.get('/categories', (req, res) => {
   });
 });
 
+router.get('/:id', (req, res) => {
+  var data = {
+    id: req.params.id,
+  };
+
+  pool.query('SELECT * FROM categorias WHERE id = ?', [data.id], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
 module.exports = router;

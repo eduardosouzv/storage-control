@@ -41,6 +41,9 @@ class CategoryRegister extends React.Component {
               style={{ cursor: 'pointer', paddingRight: '18px' }}
               onClick={() => {
                 console.log('edit');
+                axios.get(`http://localhost:3001/category/${product.id}`).then((res) => {
+                  console.log(res.data);
+                });
               }}
             ></i>
             <i
