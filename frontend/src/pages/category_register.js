@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
 
 import Sucess from '../components/sucessMessage';
 import Failed from '../components/failMessage';
@@ -19,6 +20,9 @@ class CategoryRegister extends React.Component {
         visibility: false,
         msg: '',
       },
+      modalVisibility: false,
+      id: '',
+      name: '',
     };
   }
 
@@ -40,9 +44,8 @@ class CategoryRegister extends React.Component {
               title="Editar"
               style={{ cursor: 'pointer', paddingRight: '18px' }}
               onClick={() => {
-                console.log('edit');
                 axios.get(`http://localhost:3001/category/${product.id}`).then((res) => {
-                  console.log(res.data);
+                  this.setState({ modalVisibility: true, name: res.data[0].nome, id: res.data[0].id });
                 });
               }}
             ></i>
@@ -76,6 +79,21 @@ class CategoryRegister extends React.Component {
     }
   };
 
+  hideModal = () => {
+    this.setState({ modalVisibility: false });
+  };
+
+  sendChange = () => {
+    axios.put('http://localhost:3001/category/edit', { id: this.state.id, name: this.state.name }).then(() => {
+      this.setState({ modalVisibility: false });
+      this.getCategories();
+    });
+  };
+
+  onChangeModalInput = (e) => {
+    this.setState({ name: e.target.value });
+  };
+
   render() {
     return (
       <div>
@@ -84,6 +102,21 @@ class CategoryRegister extends React.Component {
             <div className="col-md-12 mx-auto mb-4">
               <h1>Cadastro de Categoria</h1>
             </div>
+
+            <Modal animation={false} show={this.state.modalVisibility} onHide={this.hideModal}>
+              <Modal.Header>Confirmar Edição</Modal.Header>
+              <Modal.Body>
+                <label>Nome de categoria</label>
+                <div className="input-group mb-3">
+                  <input defaultValue={this.state.name} type="text" className="form-control" onChange={this.onChangeModalInput} />
+                  <div className="input-group-append">
+                    <button className="btn btn-dark" type="button" onClick={this.sendChange}>
+                      Alterar
+                    </button>
+                  </div>
+                </div>
+              </Modal.Body>
+            </Modal>
 
             <div className="container">
               <form>

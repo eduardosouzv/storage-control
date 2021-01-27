@@ -25,4 +25,15 @@ router.get('/:id', (req, res) => {
     res.send(result);
   });
 });
+
+router.put('/edit', (req, res) => {
+  var data = {
+    id: req.body.id,
+    name: req.body.name,
+  };
+
+  pool.query('UPDATE categorias SET nome = ? WHERE id = ?', [data.name, data.id], (err, result) => {
+    res.send(result);
+  });
+});
 module.exports = router;
