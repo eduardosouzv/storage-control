@@ -36,4 +36,18 @@ router.put('/edit', (req, res) => {
     res.send(result);
   });
 });
+
+router.delete('/delete/:id', (req, res) => {
+  var data = {
+    id: req.params.id,
+  };
+
+  pool.query('DELETE FROM categorias WHERE id = ?', [data.id], (err, result) => {
+    if (err) {
+      res.send(null);
+    }
+    res.send(result);
+  });
+});
+
 module.exports = router;

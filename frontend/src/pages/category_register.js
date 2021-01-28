@@ -60,7 +60,7 @@ class CategoryRegister extends React.Component {
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 console.log('del');
-                console.log(product.id);
+                this.setState({ id: product.id });
                 this.setState({ confirmationContent: product.nome, confirmationVisibility: true });
               }}
             ></i>
@@ -81,9 +81,10 @@ class CategoryRegister extends React.Component {
     if (this.state.category_name.length === 0) {
       this.setState({ failed: { visibility: true, msg: 'Campo em branco.' } });
     } else {
-      axios
-        .post('http://localhost:3001/category/create', { name: this.state.category_name })
-        .then(this.setState({ sucess: { visibility: true, msg: 'Cadastrado.' } }));
+      axios.post('http://localhost:3001/category/create', { name: this.state.category_name }).then((res) => {
+        this.setState({ sucess: { visibility: true, msg: 'Cadastrado.' } });
+        this.getCategories();
+      });
     }
   };
 
@@ -107,11 +108,20 @@ class CategoryRegister extends React.Component {
   };
 
   onConfirmationDelete = () => {
-    console.log('delete');
+    this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+    axios.delete(`http://localhost:3001/category/delete/${this.state.id}`).then((res) => {
+      if (!res.data) {
+        this.setState({ failed: { visibility: true, msg: 'Categoria cadastrada em algum produto' } });
+      } else {
+        this.setState({ sucess: { visibility: true, msg: 'Excluido' } });
+        this.getCategories();
+      }
+      this.setState({ confirmationVisibility: false });
+    });
   };
 
   onConfirmationDiscard = () => {
-    console.log('discard');
+    this.setState({ confirmationVisibility: false });
   };
 
   render() {
