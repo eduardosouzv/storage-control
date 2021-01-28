@@ -4,25 +4,31 @@ import Modal from 'react-bootstrap/Modal';
 
 import Sucess from '../components/sucessMessage';
 import Failed from '../components/failMessage';
+import Confirmation from '../components/confirmation_modal';
 
 class CategoryRegister extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       categories: [],
-
       category_name: '',
+
       sucess: {
         visibility: false,
         msg: '',
       },
+
       failed: {
         visibility: false,
         msg: '',
       },
+
       modalVisibility: false,
       id: '',
       name: '',
+
+      confirmationVisibility: false,
+      confirmationContent: '',
     };
   }
 
@@ -54,6 +60,8 @@ class CategoryRegister extends React.Component {
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 console.log('del');
+                console.log(product.id);
+                this.setState({ confirmationContent: product.nome, confirmationVisibility: true });
               }}
             ></i>
           </td>
@@ -83,6 +91,10 @@ class CategoryRegister extends React.Component {
     this.setState({ modalVisibility: false });
   };
 
+  hideConfirmation = () => {
+    this.setState({ confirmationVisibility: false });
+  };
+
   sendChange = () => {
     axios.put('http://localhost:3001/category/edit', { id: this.state.id, name: this.state.name }).then(() => {
       this.setState({ modalVisibility: false });
@@ -94,6 +106,14 @@ class CategoryRegister extends React.Component {
     this.setState({ name: e.target.value });
   };
 
+  onConfirmationDelete = () => {
+    console.log('delete');
+  };
+
+  onConfirmationDiscard = () => {
+    console.log('discard');
+  };
+
   render() {
     return (
       <div>
@@ -102,6 +122,14 @@ class CategoryRegister extends React.Component {
             <div className="col-md-12 mx-auto mb-4">
               <h1>Cadastro de Categoria</h1>
             </div>
+
+            <Confirmation
+              visibility={this.state.confirmationVisibility}
+              content={this.state.confirmationContent}
+              hide={this.hideConfirmation}
+              onConfirm={this.onConfirmationDelete}
+              onDiscard={this.onConfirmationDiscard}
+            />
 
             <Modal animation={false} show={this.state.modalVisibility} onHide={this.hideModal}>
               <Modal.Header>Confirmar Edição</Modal.Header>
