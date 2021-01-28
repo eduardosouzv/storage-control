@@ -5,6 +5,7 @@ import TableLine from '../components/table_content_line';
 import Sucess from '../components/sucessMessage';
 import Failed from '../components/failMessage';
 import Button from '../components/button_form';
+import Confirmation from '../components/confirmation_modal';
 
 class Register extends React.Component {
   constructor(props) {
@@ -29,6 +30,9 @@ class Register extends React.Component {
       },
 
       editButtonVisibility: false,
+
+      confirmationVisibility: false,
+      confirmationContent: '',
     };
   }
 
@@ -73,9 +77,7 @@ class Register extends React.Component {
               });
             }}
             delClick={() => {
-              axios.delete('http://localhost:3001/product/delete', { data: { id: product.id } }).then(() => {
-                this.getProducts();
-              });
+              this.setState({ confirmationContent: product.nome, confirmationVisibility: true, id: product.id });
             }}
           />
         )
@@ -180,6 +182,21 @@ class Register extends React.Component {
     }
   };
 
+  onConfirmationDiscard = () => {
+    this.setState({ confirmationVisibility: false });
+  };
+
+  hideConfirmation = () => {
+    this.setState({ confirmationVisibility: false });
+  };
+
+  onConfirmationDelete = () => {
+    axios.delete(`http://localhost:3001/product/delete/${this.state.id}`).then(() => {
+      this.getProducts();
+      this.setState({ confirmationVisibility: false });
+    });
+  };
+
   render() {
     return (
       <>
@@ -189,6 +206,14 @@ class Register extends React.Component {
               <div className="col-md-12 mb-4">
                 <h1>Produtos</h1>
               </div>
+
+              <Confirmation
+                visibility={this.state.confirmationVisibility}
+                content={this.state.confirmationContent}
+                hide={this.hideConfirmation}
+                onConfirm={this.onConfirmationDelete}
+                onDiscard={this.onConfirmationDiscard}
+              />
             </div>
             <div className="row">
               <div className="col-md-6 mt-2">
