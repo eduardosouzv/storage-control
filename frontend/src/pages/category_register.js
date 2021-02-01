@@ -43,7 +43,7 @@ class CategoryRegister extends React.Component {
       el.push(
         <tr key={product.id}>
           <td>{product.id}</td>
-          <td>{product.nome}</td>
+          <td>{product.name}</td>
           <td>
             <i
               className="fas fa-pen fa-2x"
@@ -59,9 +59,8 @@ class CategoryRegister extends React.Component {
               className="fas fa-trash-alt fa-2x"
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                console.log('del');
                 this.setState({ id: product.id });
-                this.setState({ confirmationContent: product.nome, confirmationVisibility: true });
+                this.setState({ confirmationContent: product.name, confirmationVisibility: true });
               }}
             ></i>
           </td>
