@@ -7,34 +7,27 @@ router.post('/register', (req, res) => {
     name: req.body.name,
     quantity: req.body.quantity,
     price: req.body.price,
-    categorias_id: req.body.categorias_id,
+    categories_id: req.body.categories_id,
   };
 
-  pool.query(
-    'INSERT INTO produtos(nome, quantidade, preco, categorias_id) VALUES (?,?,?,?)',
-    [data.name, data.quantity, data.price, data.categorias_id],
-    (err, result) => {
-      if (err) throw err;
-      res.send(data);
-    }
-  );
+  pool.query('INSERT INTO products(name, quantity, price, categories_id) VALUES (?,?,?,?)', [data.name, data.quantity, data.price, data.categories_id], (err, result) => {
+    if (err) throw err;
+    res.send(data);
+  });
 });
 
 router.get('/category', (req, res) => {
-  pool.query('SELECT * FROM categorias', (err, rows) => {
+  pool.query('SELECT * FROM categories', (err, rows) => {
     if (err) throw err;
     res.send(rows.length ? rows : null);
   });
 });
 
 router.get('/products', (req, res) => {
-  pool.query(
-    'SELECT produtos.*, categorias.nome AS nome_categoria FROM produtos INNER JOIN categorias ON produtos.categorias_id = categorias.id ORDER BY produtos.id;',
-    (err, rows) => {
-      if (err) throw err;
-      res.send(rows.length ? rows : null);
-    }
-  );
+  pool.query('SELECT products.*, categories.name AS category_name FROM products INNER JOIN categories ON products.categories_id = categories.id ORDER BY products.id;', (err, rows) => {
+    if (err) throw err;
+    res.send(rows.length ? rows : null);
+  });
 });
 
 router.put('/edit', (req, res) => {
@@ -42,22 +35,18 @@ router.put('/edit', (req, res) => {
     name: req.body.name,
     quantity: req.body.quantity,
     price: req.body.price,
-    categorias_id: req.body.categorias_id,
+    categories_id: req.body.categories_id,
     id: req.body.id,
   };
 
-  pool.query(
-    'UPDATE produtos SET nome = ?, quantidade = ?, preco = ?, categorias_id = ? WHERE id = ?',
-    [data.name, data.quantity, data.price, data.categorias_id, data.id],
-    (err, result) => {
-      if (err) throw err;
-      res.send(data);
-    }
-  );
+  pool.query('UPDATE products SET name = ?, quantity = ?, price = ?, categories_id = ? WHERE id = ?', [data.name, data.quantity, data.price, data.categories_id, data.id], (err, result) => {
+    if (err) throw err;
+    res.send(data);
+  });
 });
 
 router.delete('/delete/:id', (req, res) => {
-  pool.query('DELETE FROM produtos WHERE id = ?', [req.params.id], (err, result) => {
+  pool.query('DELETE FROM products WHERE id = ?', [req.params.id], (err, result) => {
     if (err) throw err;
     res.send(result);
   });

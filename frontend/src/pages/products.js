@@ -60,24 +60,24 @@ class Register extends React.Component {
           <TableLine
             key={product.id}
             id={product.id}
-            name={product.nome}
-            quantity={product.quantidade}
-            price={product.preco}
-            category={product.nome_categoria}
+            name={product.name}
+            quantity={product.quantity}
+            price={product.price}
+            category={product.category_name}
             editClick={() => {
               this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
               window.scrollTo(0, 0);
               this.setState({ editButtonVisibility: true });
               this.setState({
-                name: product.nome,
-                quantity: product.quantidade,
-                price: product.preco,
-                category_id: product.categorias_id,
+                name: product.name,
+                quantity: product.quantity,
+                price: product.price,
+                category_id: product.categories_id,
                 id: product.id,
               });
             }}
             delClick={() => {
-              this.setState({ confirmationContent: product.nome, confirmationVisibility: true, id: product.id });
+              this.setState({ confirmationContent: product.name, confirmationVisibility: true, id: product.id });
             }}
           />
         )
@@ -117,12 +117,7 @@ class Register extends React.Component {
 
   verifyFields = () => {
     var qtdParsed = parseInt(this.state.quantity);
-    if (
-      this.state.name.length === 0 ||
-      this.state.quantity.length === 0 ||
-      this.state.price.length === 0 ||
-      this.state.category_id.length === 0
-    ) {
+    if (this.state.name.length === 0 || this.state.quantity.length === 0 || this.state.price.length === 0 || this.state.category_id.length === 0) {
       this.setState({ failed: { visibility: true, msg: 'Campos em branco.' } });
       return false;
     } else if (isNaN(qtdParsed)) {
@@ -145,7 +140,7 @@ class Register extends React.Component {
           name: this.state.name,
           quantity: parseInt(this.state.quantity),
           price: this.formatPrice(this.state.price),
-          categorias_id: this.state.category_id,
+          categories_id: this.state.category_id,
         })
         .then(() => {
           this.getProducts();
@@ -162,7 +157,7 @@ class Register extends React.Component {
           name: this.state.name,
           quantity: parseInt(this.state.quantity),
           price: this.formatPrice(this.state.price),
-          categorias_id: this.state.category_id,
+          categories_id: this.state.category_id,
           id: this.state.id,
         })
         .then(() => {
@@ -220,14 +215,7 @@ class Register extends React.Component {
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label htmlFor="name">Nome</label>
-                    <input
-                      value={this.state.name}
-                      id="name"
-                      type="text"
-                      className="form-control"
-                      autoComplete="off"
-                      onChange={this.onChangeName}
-                    />
+                    <input value={this.state.name} id="name" type="text" className="form-control" autoComplete="off" onChange={this.onChangeName} />
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="cat">Categoria</label>
@@ -236,7 +224,7 @@ class Register extends React.Component {
                       {this.state.categories
                         ? this.state.categories.map((category) => (
                             <option key={category.id} value={category.id}>
-                              {category.nome}
+                              {category.name}
                             </option>
                           ))
                         : null}
@@ -247,26 +235,12 @@ class Register extends React.Component {
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label htmlFor="quantity">Quantidade</label>
-                    <input
-                      value={this.state.quantity}
-                      id="quantity"
-                      type="text"
-                      className="form-control"
-                      autoComplete="off"
-                      onChange={this.onChangeQuantity}
-                    />
+                    <input value={this.state.quantity} id="quantity" type="text" className="form-control" autoComplete="off" onChange={this.onChangeQuantity} />
                   </div>
 
                   <div className="form-group col-md-6">
                     <label htmlFor="price">Preço</label>
-                    <input
-                      value={this.state.price}
-                      id="price"
-                      type="text"
-                      className="form-control"
-                      autoComplete="off"
-                      onChange={this.onChangePrice}
-                    />
+                    <input value={this.state.price} id="price" type="text" className="form-control" autoComplete="off" onChange={this.onChangePrice} />
                   </div>
                 </div>
 
