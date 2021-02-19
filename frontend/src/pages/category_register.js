@@ -39,6 +39,11 @@ class CategoryRegister extends React.Component {
   getCategories = async () => {
     const response = await axios.get('http://localhost:3001/category/categories');
     var el = [];
+
+    if (response) {
+      return;
+    }
+
     response.data.map((product) =>
       el.push(
         <tr key={product.id}>
