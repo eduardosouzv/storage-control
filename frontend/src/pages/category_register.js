@@ -40,7 +40,7 @@ class CategoryRegister extends React.Component {
     const response = await axios.get('http://localhost:3001/category/categories');
     var el = [];
 
-    if (response) {
+    if (!response.data) {
       return;
     }
 
