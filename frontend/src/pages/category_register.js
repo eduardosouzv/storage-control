@@ -41,6 +41,7 @@ class CategoryRegister extends React.Component {
     var el = [];
 
     if (!response.data) {
+      this.setState({ categories: [] });
       return;
     }
 
