@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TableLine extends React.Component {
+export class TableLine extends React.Component {
   render() {
     return (
       <>
@@ -17,12 +17,14 @@ class TableLine extends React.Component {
               style={{ cursor: 'pointer', paddingRight: '18px' }}
               onClick={this.props.editClick}
             ></i>
-            <i className="fas fa-trash-alt fa-2x" style={{ cursor: 'pointer' }} onClick={this.props.delClick}></i>
+            <i
+              className="fas fa-trash-alt fa-2x"
+              style={{ cursor: 'pointer' }}
+              onClick={this.props.delClick}
+            ></i>
           </td>
         </tr>
       </>
     );
   }
 }
-
-export default TableLine;

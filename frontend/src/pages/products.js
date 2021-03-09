@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 
-import TableLine from '../components/table_content_line';
-import Sucess from '../components/sucessMessage';
-import Failed from '../components/failMessage';
-import Button from '../components/button_form';
-import Confirmation from '../components/confirmation_modal';
+import { TableLine } from '../components/TableLine';
+import { SucessMessage } from '../components/SucessMessage';
+import { FailMessage } from '../components/FailMessage';
+import { ButtonForm } from '../components/ButtonForm';
+import { ConfirmationModal } from '../components/ConfirmationModal';
+import { Table } from '../components/Table';
 
 class Register extends React.Component {
   constructor(props) {
@@ -182,7 +183,7 @@ class Register extends React.Component {
                 <h1>Produtos</h1>
               </div>
 
-              <Confirmation
+              <ConfirmationModal
                 visibility={this.state.confirmationVisibility}
                 content={this.state.confirmationContent}
                 hide={this.hideConfirmation}
@@ -251,18 +252,18 @@ class Register extends React.Component {
 
                 <div>
                   {this.state.editButtonVisibility ? (
-                    <Button
+                    <ButtonForm
                       bClass="btn btn-primary"
                       text="Salvar alterações"
                       click={this.sendChange}
                     />
                   ) : (
-                    <Button bClass="btn btn-dark" text="Cadastrar" click={this.sendProduct} />
+                    <ButtonForm bClass="btn btn-dark" text="Cadastrar" click={this.sendProduct} />
                   )}
                 </div>
                 <div className="mt-2">
                   {this.state.sucess.visibility ? (
-                    <Sucess
+                    <SucessMessage
                       msg={this.state.sucess.msg}
                       click={() => {
                         this.setState({ sucess: { visibility: false, msg: '' } });
@@ -271,7 +272,7 @@ class Register extends React.Component {
                   ) : null}
 
                   {this.state.failed.visibility ? (
-                    <Failed
+                    <FailMessage
                       msg={this.state.failed.msg}
                       click={() => {
                         this.setState({ failed: { visibility: false, msg: '' } });
@@ -284,53 +285,40 @@ class Register extends React.Component {
 
             <div className="row mt-5">
               <div className="col">
-                <table className="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Nome</th>
-                      <th scope="col">Quantidade</th>
-                      <th scope="col">Preço</th>
-                      <th scope="col">Categoria</th>
-                      <th scope="col">Ações</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {this.state.products.map((product) => (
-                      <TableLine
-                        key={product.id}
-                        id={product.id}
-                        name={product.name}
-                        quantity={product.quantity}
-                        price={product.price}
-                        category={product.category_name}
-                        editClick={() => {
-                          this.setState({
-                            sucess: { visibility: false, msg: '' },
-                            failed: { visibility: false, msg: '' },
-                          });
-                          window.scrollTo(0, 0);
-                          this.setState({ editButtonVisibility: true });
-                          this.setState({
-                            name: product.name,
-                            quantity: product.quantity,
-                            price: product.price,
-                            category_id: product.categories_id,
-                            id: product.id,
-                          });
-                        }}
-                        delClick={() => {
-                          this.setState({
-                            confirmationContent: product.name,
-                            confirmationVisibility: true,
-                            id: product.id,
-                          });
-                        }}
-                      />
-                    ))}
-                  </tbody>
-                </table>
+                <Table>
+                  {this.state.products.map((product) => (
+                    <TableLine
+                      key={product.id}
+                      id={product.id}
+                      name={product.name}
+                      quantity={product.quantity}
+                      price={product.price}
+                      category={product.category_name}
+                      editClick={() => {
+                        this.setState({
+                          sucess: { visibility: false, msg: '' },
+                          failed: { visibility: false, msg: '' },
+                        });
+                        window.scrollTo(0, 0);
+                        this.setState({ editButtonVisibility: true });
+                        this.setState({
+                          name: product.name,
+                          quantity: product.quantity,
+                          price: product.price,
+                          category_id: product.categories_id,
+                          id: product.id,
+                        });
+                      }}
+                      delClick={() => {
+                        this.setState({
+                          confirmationContent: product.name,
+                          confirmationVisibility: true,
+                          id: product.id,
+                        });
+                      }}
+                    />
+                  ))}
+                </Table>
               </div>
             </div>
           </div>

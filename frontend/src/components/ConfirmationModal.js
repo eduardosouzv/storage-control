@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-class Confirmation extends React.Component {
+export class ConfirmationModal extends React.Component {
   render() {
     return (
       <div>
@@ -25,5 +25,3 @@ class Confirmation extends React.Component {
     );
   }
 }
-
-export default Confirmation;

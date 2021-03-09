@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FailMessage extends React.Component {
+export class FailMessage extends React.Component {
   render() {
     return (
       <div>
@@ -14,5 +14,3 @@ class FailMessage extends React.Component {
     );
   }
 }
-
-export default FailMessage;

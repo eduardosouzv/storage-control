@@ -1,15 +1,15 @@
-import './App.css'
+import './styles/App.css';
 
-import Routes from './router'
+import { Router } from './components/Router';
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
     <div>
-      <Routes />
+      <Router />
     </div>
   );
-}
+};
 
 export default App;

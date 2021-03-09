@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SucessMessage extends React.Component {
+export class SucessMessage extends React.Component {
   render() {
     return (
       <div>
@@ -14,5 +14,3 @@ class SucessMessage extends React.Component {
     );
   }
 }
-
-export default SucessMessage;

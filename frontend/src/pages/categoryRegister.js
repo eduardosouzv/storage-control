@@ -2,9 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 
-import Sucess from '../components/sucessMessage';
-import Failed from '../components/failMessage';
-import Confirmation from '../components/confirmation_modal';
+import { SucessMessage } from '../components/SucessMessage';
+import { FailMessage } from '../components/FailMessage';
+import { ConfirmationModal } from '../components/ConfirmationModal';
 
 class CategoryRegister extends React.Component {
   constructor(props) {
@@ -57,7 +57,11 @@ class CategoryRegister extends React.Component {
               style={{ cursor: 'pointer', paddingRight: '18px' }}
               onClick={() => {
                 axios.get(`http://localhost:3001/category/${product.id}`).then((res) => {
-                  this.setState({ modalVisibility: true, name: res.data[0].nome, id: res.data[0].id });
+                  this.setState({
+                    modalVisibility: true,
+                    name: res.data[0].nome,
+                    id: res.data[0].id,
+                  });
                 });
               }}
             ></i>
@@ -81,15 +85,20 @@ class CategoryRegister extends React.Component {
   };
 
   sendCatName = () => {
-    this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+    this.setState({
+      sucess: { visibility: false, msg: '' },
+      failed: { visibility: false, msg: '' },
+    });
 
     if (this.state.category_name.length === 0) {
       this.setState({ failed: { visibility: true, msg: 'Campo em branco.' } });
     } else {
-      axios.post('http://localhost:3001/category/create', { name: this.state.category_name }).then((res) => {
-        this.setState({ sucess: { visibility: true, msg: 'Cadastrado.' } });
-        this.getCategories();
-      });
+      axios
+        .post('http://localhost:3001/category/create', { name: this.state.category_name })
+        .then((res) => {
+          this.setState({ sucess: { visibility: true, msg: 'Cadastrado.' } });
+          this.getCategories();
+        });
     }
   };
 
@@ -102,10 +111,12 @@ class CategoryRegister extends React.Component {
   };
 
   sendChange = () => {
-    axios.put('http://localhost:3001/category/edit', { id: this.state.id, name: this.state.name }).then(() => {
-      this.setState({ modalVisibility: false });
-      this.getCategories();
-    });
+    axios
+      .put('http://localhost:3001/category/edit', { id: this.state.id, name: this.state.name })
+      .then(() => {
+        this.setState({ modalVisibility: false });
+        this.getCategories();
+      });
   };
 
   onChangeModalInput = (e) => {
@@ -113,10 +124,15 @@ class CategoryRegister extends React.Component {
   };
 
   onConfirmationDelete = () => {
-    this.setState({ sucess: { visibility: false, msg: '' }, failed: { visibility: false, msg: '' } });
+    this.setState({
+      sucess: { visibility: false, msg: '' },
+      failed: { visibility: false, msg: '' },
+    });
     axios.delete(`http://localhost:3001/category/delete/${this.state.id}`).then((res) => {
       if (!res.data) {
-        this.setState({ failed: { visibility: true, msg: 'Categoria cadastrada em algum produto' } });
+        this.setState({
+          failed: { visibility: true, msg: 'Categoria cadastrada em algum produto' },
+        });
       } else {
         this.setState({ sucess: { visibility: true, msg: 'Excluido' } });
         this.getCategories();
@@ -138,7 +154,7 @@ class CategoryRegister extends React.Component {
               <h1>Cadastro de Categoria</h1>
             </div>
 
-            <Confirmation
+            <ConfirmationModal
               visibility={this.state.confirmationVisibility}
               content={this.state.confirmationContent}
               hide={this.hideConfirmation}
@@ -151,7 +167,12 @@ class CategoryRegister extends React.Component {
               <Modal.Body>
                 <label>Nome de categoria</label>
                 <div className="input-group mb-3">
-                  <input defaultValue={this.state.name} type="text" className="form-control" onChange={this.onChangeModalInput} />
+                  <input
+                    defaultValue={this.state.name}
+                    type="text"
+                    className="form-control"
+                    onChange={this.onChangeModalInput}
+                  />
                   <div className="input-group-append">
                     <button className="btn btn-dark" type="button" onClick={this.sendChange}>
                       Alterar
@@ -164,7 +185,12 @@ class CategoryRegister extends React.Component {
             <div className="container">
               <form>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Nome da categoria" onChange={this.changeCatName} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Nome da categoria"
+                    onChange={this.changeCatName}
+                  />
                 </div>
 
                 <div className="float-right">
@@ -175,7 +201,7 @@ class CategoryRegister extends React.Component {
               </form>
               <div className="row">
                 {this.state.sucess.visibility ? (
-                  <Sucess
+                  <SucessMessage
                     msg={this.state.sucess.msg}
                     click={() => {
                       this.setState({ sucess: { visibility: false, msg: '' } });
@@ -184,7 +210,7 @@ class CategoryRegister extends React.Component {
                 ) : null}
 
                 {this.state.failed.visibility ? (
-                  <Failed
+                  <FailMessage
                     msg={this.state.failed.msg}
                     click={() => {
                       this.setState({ failed: { visibility: false, msg: '' } });
