@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 
-import { SucessMessage } from '../components/SucessMessage';
-import { FailMessage } from '../components/FailMessage';
+import { SucessMessage } from '../components/SucessAlert';
+import { FailMessage } from '../components/FailedAlert';
 import { ConfirmationModal } from '../components/ConfirmationModal';
 
 class CategoryRegister extends React.Component {

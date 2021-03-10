@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 import { TableLine } from '../components/TableLine';
-import { SucessMessage } from '../components/SucessMessage';
-import { FailMessage } from '../components/FailMessage';
+import { SucessMessage } from '../components/SucessAlert';
+import { FailMessage } from '../components/FailedAlert';
 import { ButtonForm } from '../components/ButtonForm';
 import { ConfirmationModal } from '../components/ConfirmationModal';
 import { Table } from '../components/Table';
